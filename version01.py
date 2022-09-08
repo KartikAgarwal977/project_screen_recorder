@@ -4,19 +4,14 @@ import numpy as np
 from tkinter import *
 from lplay import lplay
 from screenshot import  screenshot1
-
+from time import time 
 def screen_recorder () :
 	resolution = (1920, 1080)
-
+	master.wm_state("iconic")
 	codec = cv2.VideoWriter_fourcc(*"FMP4")
-	try :
-		file = input("Enter the filename :")
-		filename ="D:\\ss\\"+file+".avi"
-	except :
-		print ("sorry! Please try again")
-		return screen_recorder
+	
 	fps = 20.0
-
+	filename = "D:\\ss\\jj.avi"	
 	out = cv2.VideoWriter(filename, codec, fps, resolution)
 
 	cv2.namedWindow("Live", cv2.WINDOW_NORMAL)
@@ -27,7 +22,7 @@ def screen_recorder () :
 		img = pyautogui.screenshot()
 
 		frame = np.array(img)
-
+		# t =str( round((time() - starttime), 2))
 		frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 		out.write(frame)
@@ -36,20 +31,23 @@ def screen_recorder () :
 
 		if cv2.waitKey(1)==ord("q"):
 			break
-			
 	out.release()
-
 	cv2.destroyAllWindows()
+	
+	
 l = lplay()
 master = Tk()
+master.geometry("320x100")
+
 # label of screen record button   
-Label(master, text="Screen Record").grid(row=0, sticky=E, rowspan=4)
+Label(master, text="Screen Record",font='Engravers').place(x=0,y=10)
 # button to start record  
-b = Button(master, text="rec", command = screen_recorder)
-b.grid(row=0, column=2, columnspan=6, rowspan=2, padx=5, pady=5)
+b = Button(master, text="rec", command = screen_recorder, font="Algerian", bg= "lightcyan")
+b.place(x=200 , y=10)
+
 # label of screenshot button 
-Label(master , text = "screenshot").grid(row = 4, sticky=E , rowspan= 15)
+Label(master , text = "Screenshot",font= 'Engravers').place(x=0,y=50)
 # button to capture screenshot
-b1 = Button(master , text = "capture" , command= screenshot1 )
-b1.grid(row =4 , column = 2, rowspan=6 , columnspan= 6)
+b1 = Button(master , text = "capture" , command= screenshot1, font= "Algerian", bg="lightcyan" )
+b1.place(x=200, y= 50)
 mainloop()

@@ -4,7 +4,7 @@ def lplay() :
 
     t = turtle.Turtle()
     
-    t.speed(85)
+    t.speed(5)
     turtle.bgcolor("yellow")
     turtle.color("red","red")
     turtle.pensize(5)
